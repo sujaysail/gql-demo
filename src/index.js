@@ -1,12 +1,33 @@
 import { GraphQLServer} from 'graphql-yoga'
 
+//DEmo user data
+
+const users = [{
+    id: "173577",
+    name: "Sujay Sail",
+    email: "ss@gmail.com",
+    age: 25
+},
+{
+    id: "173578",
+    name: "Tujay Tail",
+    email: "tt@gmail.com",
+    age: 28
+},
+{
+    id: "173579",
+    name: "Ujay Uail",
+    email: "uu@gmail.com"
+}]
+
 //Type definitions(schema)
 const typeDefs = `
 type Query{
-    greeting(name: String, position: String): String!
-    add(a: Float!, b: Float!): Float!
+   
+    users: [User!]!
     me: User!
     post: Post!
+    
 }
 
 type User{
@@ -27,22 +48,10 @@ type Post{
 // Resolvers
 const resolvers = {
     Query: {
-        greeting(parent,args,ctx,info){
-            if(args.name && args.position){
-            return `Hello ${args.name}! You are my favourite ${args.position}`
-            } else {
-                return 'Hello!'
-            }
+        users(parent, args, ctx, info){
+            return users 
         },
-        add(parent,args){
-            if(args.a && args.b){
-                return args.a + args.b
-            }else{
-                return 0
-            }
-
-        },
-
+       
         me() {
             return {
                 id: '173577',
